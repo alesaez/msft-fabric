@@ -99,7 +99,7 @@
           "z": 8000.00
         },
         {
-          "config": "{\"name\":\"58709ac36877e9019529\",\"layouts\":[{\"id\":0,\"position\":{\"x\":20.86965849210925,\"y\":39.542510827154366,\"z\":5000,\"width\":843.5735643126264,\"height\":90.06905243962939,\"tabOrder\":5000}}],\"singleVisual\":{\"visualType\":\"textbox\",\"drillFilterOtherVisuals\":true,\"objects\":{\"general\":[{\"properties\":{\"paragraphs\":[{\"textRuns\":[{\"value\":\"FoodSales.com PUBLISHED \",\"textStyle\":{\"fontFamily\":\"Tahoma\",\"fontSize\":\"45pt\",\"color\":\"#ffffff\"}}],\"horizontalTextAlignment\":\"center\"}]}}]},\"vcObjects\":{\"background\":[{\"properties\":{\"color\":{\"solid\":{\"color\":{\"expr\":{\"Literal\":{\"Value\":\"'#FFFFFF'\"}}}}},\"show\":{\"expr\":{\"Literal\":{\"Value\":\"false\"}}}}}]}}}",
+          "config": "{\"name\":\"58709ac36877e9019529\",\"layouts\":[{\"id\":0,\"position\":{\"x\":20.86965849210925,\"y\":39.542510827154366,\"z\":5000,\"width\":843.5735643126264,\"height\":90.06905243962939,\"tabOrder\":5000}}],\"singleVisual\":{\"visualType\":\"textbox\",\"drillFilterOtherVisuals\":true,\"objects\":{\"general\":[{\"properties\":{\"paragraphs\":[{\"textRuns\":[{\"value\":\"FoodSales.com PUBLISHED2 \",\"textStyle\":{\"fontFamily\":\"Tahoma\",\"fontSize\":\"45pt\",\"color\":\"#ffffff\"}}],\"horizontalTextAlignment\":\"center\"}]}}]},\"vcObjects\":{\"background\":[{\"properties\":{\"color\":{\"solid\":{\"color\":{\"expr\":{\"Literal\":{\"Value\":\"'#FFFFFF'\"}}}}},\"show\":{\"expr\":{\"Literal\":{\"Value\":\"false\"}}}}}]}}}",
           "filters": "[]",
           "height": 90.07,
           "width": 843.57,
