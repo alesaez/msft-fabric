@@ -10,7 +10,8 @@ jobs:
   if_merged:
     if: github.event.pull_request.merged == true
     runs-on: ubuntu-latest
-    environment: dev
+    environment:
+      name: ${{ github.ref_name }}
     env:
       # Set these as GitHub secrets or environment variables in your repo
       fabricBaseUrl: ${{ vars.fabricBaseUrl }}
