@@ -19,7 +19,7 @@
 # =====================================================
 param (
     [string]$workspaceName, # The name of the workspace
-    [ValidateSet("UserPrincipal", "ServicePrincipal")]$principalType = "UserPrincipal", 
+    [ValidateSet("UserPrincipal", "ServicePrincipal")]$principalType = "ServicePrincipal", 
     # Relevant for ServicePrincipal
     [string]$clientId, # The application (client) ID of the service principal
     [string]$tenantId, # The directory (tenant) ID of the service principal
