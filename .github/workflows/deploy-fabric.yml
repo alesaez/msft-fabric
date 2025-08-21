@@ -1,65 +1,36 @@
 name: Deploy Fabric
 
 on:
-  workflow_dispatch:
-
+  pull_request:
+    types:
+      - closed
+    
 jobs:
-  deploy_to_test:
-    name: Deploy to Test
+  if_merged:
+    if: github.event.pull_request.merged == true
     runs-on: ubuntu-latest
+    environment: dev
     env:
       # Set these as GitHub secrets or environment variables in your repo
-      fabricRestApiEndpoint: ${{ secrets.FABRIC_TEST_REST_API_ENDPOINT }}
-      token: ${{ secrets.FABRIC_TEST_TOKEN }}
-      sourceStageWorkspaceName: ${{ secrets.FABRIC_TEST_SOURCE_STAGE_WORKSPACE_NAME }}
-      pipelineName: ${{ secrets.FABRIC_TEST_PIPELINE_NAME }}
-      sourceStageName: ${{ secrets.FABRIC_TEST_SOURCE_STAGE_NAME }}
-      targetStageName: ${{ secrets.FABRIC_TEST_TARGET_STAGE_NAME }}
-      workspaceName: ${{ secrets.FABRIC_TEST_WORKSPACE_NAME }}
+      fabricBaseUrl: ${{ secrets.fabricBaseUrl }}
+      clientId: ${{ secrets.clientId }}
+      tenantId: ${{ secrets.tenantId }}
+      servicePrincipalSecret: ${{ secrets.servicePrincipalSecret }}
+      workspaceName: ${{ secrets.workspaceName }}
     steps:
       - uses: actions/checkout@v4
-
-      - name: Update Source Workspace from GIT
-        shell: pwsh
-        run: |
-          ./devops/devops_scripts/update-workspace-from-git.ps1 `
-            -baseUrl "${{ env.fabricRestApiEndpoint }}" `
-            -fabricToken "${{ env.token }}" `
-            -workspaceName "${{ env.sourceStageWorkspaceName }}"
-
-      - name: Fabric CD DEV TO TEST
-        shell: pwsh
-        run: |
-          ./devops/devops_scripts/run-deployment-pipelines.ps1 `
-            -baseUrl "${{ env.fabricRestApiEndpoint }}" `
-            -fabricToken "${{ env.token }}" `
-            -pipelineName "${{ env.pipelineName }}" `
-            -sourceStageName "${{ env.sourceStageName }}" `
-            -targetStageName "${{ env.targetStageName }}" `
-            -targetStageWsName "${{ env.workspaceName }}"
-
-  deploy_to_prod:
-    name: Deploy to Production
-    runs-on: ubuntu-latest
-    needs: deploy_to_test
-    env:
-      # Set these as GitHub secrets or environment variables in your repo
-      fabricRestApiEndpoint: ${{ secrets.FABRIC_PROD_REST_API_ENDPOINT }}
-      token: ${{ secrets.FABRIC_PROD_TOKEN }}
-      pipelineName: ${{ secrets.FABRIC_PROD_PIPELINE_NAME }}
-      sourceStageName: ${{ secrets.FABRIC_PROD_SOURCE_STAGE_NAME }}
-      targetStageName: ${{ secrets.FABRIC_PROD_TARGET_STAGE_NAME }}
-      workspaceName: ${{ secrets.FABRIC_PROD_WORKSPACE_NAME }}
-    steps:
-      - uses: actions/checkout@v4
-
-      - name: Fabric CD TEST TO PROD
-        shell: pwsh
-        run: |
-          ./devops/devops_scripts/run-deployment-pipelines.ps1 `
-            -baseUrl "${{ env.fabricRestApiEndpoint }}" `
-            -fabricToken "${{ env.token }}" `
-            -pipelineName "${{ env.pipelineName }}" `
-            -sourceStageName "${{ env.sourceStageName }}" `
-            -targetStageName "${{ env.targetStageName }}" `
-            -targetStageWsName "${{ env.workspaceName }}"
+      - name: Run Azure PowerShell Script File
+        uses: azure/powershell@v2
+        with:
+          inlineScript: ./devops/update-ws-from-git.ps1 -fabricBaseUrl "${{ env.fabricBaseUrl }}" -clientId "${{ env.fabricBaseUrl }}" -tenantId "${{ env.tenantId }}" -servicePrincipalSecret "${{ env.servicePrincipalSecret }}" -workspaceName "${{ env.workspaceName }}"
+          azPSVersion: "latest"
+        
+      # - name: Update Source Workspace from GIT
+      #   shell: pwsh
+      #   run: |
+      #     ./devops/update-ws-from-git.ps1 `
+      #       -fabricBaseUrl "${{ env.fabricBaseUrl }}" `
+      #       -clientId "${{ env.fabricBaseUrl }}" `
+      #       -tenantId "${{ env.tenantId }}" `
+      #       -servicePrincipalSecret "${{ env.servicePrincipalSecret }}" `
+      #       -workspaceName "${{ env.workspaceName }}"
