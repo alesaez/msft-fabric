@@ -32,6 +32,12 @@ table Categories
 
 		annotation SummarizationSetBy = Automatic
 
+	column Column = "New"
+		lineageTag: 81e29a1b-350a-426a-9ee8-578d1721b102
+		summarizeBy: none
+
+		annotation SummarizationSetBy = Automatic
+
 	partition Categories-b60d3cb7-f94d-4509-86d5-3c19b692b7ff = m
 		mode: import
 		source =
