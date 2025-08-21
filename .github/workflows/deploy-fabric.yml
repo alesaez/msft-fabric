@@ -1,6 +1,7 @@
 name: Deploy Fabric
 
 on:
+  workflow_dispatch:
   pull_request:
     types:
       - closed
