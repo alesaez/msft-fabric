@@ -1,0 +1,37 @@
+name: Deploy Fabric
+
+on:
+  pull_request:
+    types:
+      - closed
+    
+jobs:
+  if_merged:
+    if: github.event.pull_request.merged == true
+    runs-on: ubuntu-latest
+    environment:
+      name: ${{ github.ref_name }}
+    env:
+      # Set these as GitHub secrets or environment variables in your repo
+      fabricBaseUrl: ${{ vars.fabricBaseUrl }}
+      clientId: ${{ secrets.clientId }}
+      tenantId: ${{ secrets.tenantId }}
+      servicePrincipalSecret: ${{ secrets.servicePrincipalSecret }}
+      workspaceName: ${{ vars.workspaceName }}
+    steps:
+      - uses: actions/checkout@v4
+      - name: Run Azure PowerShell Script File
+        uses: azure/powershell@v2
+        with:
+          inlineScript: ./devops/update-ws-from-git.ps1 -fabricBaseUrl "${{ env.fabricBaseUrl }}" -clientId "${{ env.clientId }}" -tenantId "${{ env.tenantId }}" -servicePrincipalSecret "${{ env.servicePrincipalSecret }}" -workspaceName "${{ env.workspaceName }}"
+          azPSVersion: "latest"
+        
+      # - name: Update Source Workspace from GIT
+      #   shell: pwsh
+      #   run: |
+      #     ./devops/update-ws-from-git.ps1 `
+      #       -fabricBaseUrl "${{ env.fabricBaseUrl }}" `
+      #       -clientId "${{ env.fabricBaseUrl }}" `
+      #       -tenantId "${{ env.tenantId }}" `
+      #       -servicePrincipalSecret "${{ env.servicePrincipalSecret }}" `
+      #       -workspaceName "${{ env.workspaceName }}"
