@@ -13,11 +13,11 @@ jobs:
     environment: dev
     env:
       # Set these as GitHub secrets or environment variables in your repo
-      fabricBaseUrl: ${{ secrets.fabricBaseUrl }}
+      fabricBaseUrl: ${{ vars.fabricBaseUrl }}
       clientId: ${{ secrets.clientId }}
       tenantId: ${{ secrets.tenantId }}
       servicePrincipalSecret: ${{ secrets.servicePrincipalSecret }}
-      workspaceName: ${{ secrets.workspaceName }}
+      workspaceName: ${{ vars.workspaceName }}
     steps:
       - uses: actions/checkout@v4
       - name: Run Azure PowerShell Script File
