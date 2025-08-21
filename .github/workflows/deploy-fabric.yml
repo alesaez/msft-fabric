@@ -23,7 +23,7 @@ jobs:
       - name: Run Azure PowerShell Script File
         uses: azure/powershell@v2
         with:
-          inlineScript: ./devops/update-ws-from-git.ps1 -fabricBaseUrl "${{ env.fabricBaseUrl }}" -clientId "${{ env.fabricBaseUrl }}" -tenantId "${{ env.tenantId }}" -servicePrincipalSecret "${{ env.servicePrincipalSecret }}" -workspaceName "${{ env.workspaceName }}"
+          inlineScript: ./devops/update-ws-from-git.ps1 -fabricBaseUrl "${{ env.fabricBaseUrl }}" -clientId "${{ env.clientId }}" -tenantId "${{ env.tenantId }}" -servicePrincipalSecret "${{ env.servicePrincipalSecret }}" -workspaceName "${{ env.workspaceName }}"
           azPSVersion: "latest"
         
       # - name: Update Source Workspace from GIT
